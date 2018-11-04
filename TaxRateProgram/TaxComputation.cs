@@ -96,15 +96,16 @@ namespace TaxRateProgram
                 Console.Out.WriteLine("there is no tax for the amount of " + amount);
             }
 
-            if((amount > 0  )||(amount <= 18150))
+            if((amount > 0  )&&(amount <= 18150))
             {
                 tax = amount * 0.10;
             }
-            else if ((amount >  18150 ) || (amount <= 73800))
+            else if ((amount >  18150 ) && (amount <= 73800))
             {
                 tax = (1815) + ((amount - 18150) * 0.15);
+                Console.Out.WriteLine("inside the function  tax = " + tax);
             }
-            else if ((amount > 73800  ) || (amount <= 148850))
+            else if ((amount > 73800  ) && (amount <= 148850))
             {
                 tax = (10162.50) + ((amount - 73800) * 0.25);
             }

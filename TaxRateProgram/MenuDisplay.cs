@@ -20,7 +20,7 @@ namespace TaxRateProgram
             do
             {
                 Console.WriteLine("\n\n\n");
-                Console.WriteLine("Welcome to the tax information program");
+                Console.WriteLine("Welcome to the income tax information program");
                 Console.WriteLine("\n\nPress the number corresponding to the menu choice you need");
                 Console.WriteLine("1.) press for filing single");
                 Console.WriteLine("2.) press for filing married-filing jointly or qualifying widow(er)");

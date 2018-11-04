@@ -38,19 +38,23 @@ namespace TaxRateProgram
                         {
                             amount = double.Parse(Console.ReadLine());
                             invalid = false;
-                            
+
                         }
-                        catch(System.FormatException )
+                        catch (System.FormatException)
                         {
                             Console.Out.WriteLine("\n\n\nInvalid input try again");
                             invalid = true;
                         }
-                        
+
 
                     } while (invalid);
 
                     tax = taxComputation.TaxCompute(choice, amount);
-                    Console.Out.WriteLine("The tax you will owe on the amount of $" + amount + " is $" + tax+"\n\n");
+
+                    string taxString = tax.ToString("f2"); //format return to two decimal places
+
+                    Console.Out.WriteLine("The tax you will owe on the amount of $" + amount + " is $ " +
+                        ""+taxString+"\n\n");
                 }
                
             } while (runAgain);
