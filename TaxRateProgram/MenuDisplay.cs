@@ -1,4 +1,16 @@
-﻿using System;
+﻿
+// =========================================================
+// Jerry Cook
+// 11/11/2018
+// 
+// This class is to display the selection menu for
+// tax compuation program. 
+//
+//===============================================================
+
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,8 +23,9 @@ namespace TaxRateProgram
         public MenuDisplay()
         {
 
-        }
+        }//default constructor
 
+        //displays menu for the user to select which tax bracked to compute the taxes from or to quit the application. 
         public  int DisplayMenu()
         {
             bool again = true;

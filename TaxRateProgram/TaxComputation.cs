@@ -1,4 +1,14 @@
-﻿using System;
+﻿// =================================================================
+// Jerry Cook
+// 11/11/2018
+// 
+// class used to compute the tax rate based on the choice of 
+// tax bracked selected and the amount entered by the user. 
+//===================================================================
+
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,7 +42,11 @@ namespace TaxRateProgram
         public TaxComputation()
         {
             
-        }
+        }//default constructor
+
+        //method determines which tax bracket to computer and sends appropriate 
+        //array to the ComputeTax method
+
         public double TaxCompute(int choice, double amount)
         {
             double tax = 0.0 ;
@@ -61,13 +75,24 @@ namespace TaxRateProgram
                     };
                     
             }
+            
             return tax;
         }
+
+        //method to compute the tax based on the amount and the array representing
+        //the ranges of the tax bracket selected.
 
         private double ComputeTax(double amount,double[,] anArray)
         {
             double tax = 0.0;
-          
+
+            //if amounts out of range of the tax bracket amounts 
+            if((amount < 0)||(amount > double.MaxValue))
+            {
+                return -1;
+            }
+
+            //if amount within range of tax brackets
             for (int index = 0; index < anArray.Length; index++)
             {
                 if ((amount >= anArray[index, 0]) && (amount < anArray[index, 1])&&(index < 7))

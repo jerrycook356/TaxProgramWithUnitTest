@@ -12,8 +12,16 @@ namespace UnitTestProject1
 
         //tests for filing single
 
-        
-        
+        [TestMethod]
+        public void TestComputeSingleTaxNegative()
+        {
+            double amount = -10;
+            //int 1 = choice one for single
+            double expected = -1;
+            double actual = taxComputation.TaxCompute(1, amount);
+            Assert.AreEqual(expected, actual);
+        }
+
         [TestMethod]
         public void TestComputeSingleTax0to9075()
         {
@@ -37,7 +45,7 @@ namespace UnitTestProject1
         public void TestComputeSingleTax36900to89350()
         {
             double amount = 50000;
-            double expected =8356.25 ;
+            double expected = 8356.25;
             //int 1 = choice one for single. 
             double actual = taxComputation.TaxCompute(1, amount);
             Assert.AreEqual(expected, actual);
@@ -46,7 +54,7 @@ namespace UnitTestProject1
         public void TestComputeSingleTax89350to186350()
         {
             double amount = 100000;
-            double expected =21175.75 ;
+            double expected = 21175.75;
             //int 1 = choice one for single
             double actual = taxComputation.TaxCompute(1, amount);
             Assert.AreEqual(expected, actual);
@@ -54,17 +62,17 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestComputeSingleTax186350to405100()
         {
-            double amount = 200000 ;
+            double amount = 200000;
             double expected = 49858.25;
             //int 1 = choice one for single
             double actual = taxComputation.TaxCompute(1, amount);
             Assert.AreEqual(expected, actual);
         }
-        [TestMethod ]
+        [TestMethod]
         public void TestComputeSingleTax405100to406750()
         {
             double amount = 406000;
-            double expected = 117856.25 ;
+            double expected = 117856.25;
             //int 1 = choice one for single
             double actual = taxComputation.TaxCompute(1, amount);
             Assert.AreEqual(expected, actual);
@@ -79,7 +87,19 @@ namespace UnitTestProject1
             Assert.AreEqual(expected, actual);
         }
 
+
+
         //tests for married filing jointly or qualified widow
+
+        [TestMethod]
+        public void TestcomputeMarriedFilingJointNegative()
+        {
+            double amount = -10;
+            double expected = -1;
+            //int 2 = choice for married filing joint
+            double actual = taxComputation.TaxCompute(2, amount);
+            Assert.AreEqual(expected, actual);
+        }
 
         [TestMethod]
         public void TestComputeMarriedFilingJoint0to18150()
@@ -146,12 +166,23 @@ namespace UnitTestProject1
         }
 
         //tests for married filing seperate
+
+        [TestMethod]
+        public void TestComputeMarriedFilingSeperateNegative()
+        {
+            double amount= -100;
+            double expected = -1;
+            //int 3 = choice for married filing Seperate
+            double actual = taxComputation.TaxCompute(3, amount);
+            Assert.AreEqual(expected, actual);
+        }
+           
         [TestMethod]
         public void TestComputeMarriedFilingSeperate0to9075()
         {
             double amount = 1000;
             double expected = 100;
-           //int 3 = choice for married filing joint
+           //int 3 = choice for married filing seperate
            double actual = taxComputation.TaxCompute(3, amount);
             Assert.AreEqual(expected, actual);
         }
@@ -160,7 +191,7 @@ namespace UnitTestProject1
         {
             double amount = 10000;
             double expected = 1046.25;
-           //int 3 = choice for married filing joint
+           //int 3 = choice for married filing seperate
            double actual = taxComputation.TaxCompute(3, amount);
             Assert.AreEqual(expected, actual);
         }
@@ -169,7 +200,7 @@ namespace UnitTestProject1
         {
             double amount = 50000;
             double expected = 8356.25;
-           //int 3 = choice for married filing joint
+           //int 3 = choice for married filing seperate
            double actual = taxComputation.TaxCompute(3, amount);
             Assert.AreEqual(expected, actual);
         }
@@ -178,7 +209,7 @@ namespace UnitTestProject1
         {
             double amount = 100000;
             double expected = 21623.50;
-          //int 3 = choice for married filing joint
+          //int 3 = choice for married filing seperate
           double actual = taxComputation.TaxCompute(3, amount);
             Assert.AreEqual(expected, actual);
         }
@@ -187,7 +218,7 @@ namespace UnitTestProject1
         {
             double amount = 150000;
             double expected = 37452.25;
-          //int 3 = choice for married filing joint
+          //int 3 = choice for married filing seperate
           double actual = taxComputation.TaxCompute(3, amount);
             Assert.AreEqual(expected, actual);
         }
@@ -196,7 +227,7 @@ namespace UnitTestProject1
         {
             double amount = 210000;
             double expected = 57401.25;
-            //int 3 = choice for married filing joint
+            //int 3 = choice for married filing seperate
             double actual = taxComputation.TaxCompute(3, amount);
             Assert.AreEqual(expected, actual);
         }
@@ -205,18 +236,26 @@ namespace UnitTestProject1
         {
             double amount = 250000;
             double expected = 72376.45;
-          //int 3 = choice for married filing joint
+          //int 3 = choice for married filing seperate
           double actual = taxComputation.TaxCompute(3, amount);
             Assert.AreEqual(expected, actual);
         }
 
         //tests for filing head of household
+
+        [TestMethod]
+        public void TestComputeHeadOfHouseHoldNegative()
+        {
+            double amount = -100;
+            double excpected = -1;
+            //int 4 = choice filing head of household
+        }
         [TestMethod]
         public void TestComputeHeadOfHouseHold0to12950()
         {
             double amount = 1000;
             double expected = 100;
-            //int 4 = choice for married filing joint
+            //int 4 = choice filing head of household
             double actual = taxComputation.TaxCompute(4, amount);
             Assert.AreEqual(expected, actual);
         }
@@ -225,8 +264,8 @@ namespace UnitTestProject1
         {
             double amount = 20000;
             double expected = 2352.50;
-           //int 4 = choice for married filing joint
-           double actual = taxComputation.TaxCompute(4, amount);
+            //int 4 = choice filing head of household
+            double actual = taxComputation.TaxCompute(4, amount);
             Assert.AreEqual(expected, actual);
         }
         [TestMethod]
@@ -235,8 +274,8 @@ namespace UnitTestProject1
 
             double amount = 100000;
             double expected = 19412.50;
-           //int 4 = choice for married filing joint
-           double actual = taxComputation.TaxCompute(4, amount);
+            //int 4 = choice filing head of household
+            double actual = taxComputation.TaxCompute(4, amount);
             Assert.AreEqual(expected, actual);
         }
         [TestMethod]
@@ -245,8 +284,8 @@ namespace UnitTestProject1
 
             double amount = 200000;
             double expected = 46586;
-           //int 4 = choice for married filing joint
-           double actual = taxComputation.TaxCompute(4, amount);
+            //int 4 = choice filing head of household
+            double actual = taxComputation.TaxCompute(4, amount);
             Assert.AreEqual(expected, actual);
         }
         [TestMethod]
@@ -255,8 +294,8 @@ namespace UnitTestProject1
 
             double amount = 300000;
             double expected = 79256;
-           //int 4 = choice for married filing joint
-           double actual = taxComputation.TaxCompute(4, amount);
+            //int 4 = choice filing head of household
+            double actual = taxComputation.TaxCompute(4, amount);
             Assert.AreEqual(expected, actual);
         }
         [TestMethod]
@@ -265,8 +304,8 @@ namespace UnitTestProject1
 
             double amount = 410000;
             double expected = 115654;
-           //int 4 = choice for married filing joint
-           double actual = taxComputation.TaxCompute(4, amount);
+            //int 4 = choice filing head of household
+            double actual = taxComputation.TaxCompute(4, amount);
             Assert.AreEqual(expected, actual);
         }
         [TestMethod]
@@ -275,8 +314,8 @@ namespace UnitTestProject1
 
             double amount = 450000;
             double expected = 130472.80;
-           //int 4 = choice for married filing joint
-           double actual = taxComputation.TaxCompute(4, amount);
+            //int 4 = choice filing head of household
+            double actual = taxComputation.TaxCompute(4, amount);
             Assert.AreEqual(expected, actual);
         }
     }
