@@ -8,8 +8,26 @@ namespace TaxRateProgram
 {
     public class TaxComputation
     {
-        
+
         private double amount;
+
+        //an array holding the table for the filing single rates
+        private double[,] filingSingleArray = new double[7, 4] {{0,9075,0.10,0},{9075,36900,0.15,907.50},
+        { 36900,89350,0.25,5081.25 },{89350,186350,0.28,18193.75 },{186350,405100,0.33,45353.75 },
+            {405100,406750,0.35,117541.25 },{406750,double.MaxValue,0.396,118118.75 } };
+
+        //an array holding the table for the  married filing joint rates
+        private double[,] marriedFilingJointArray = new double[7, 4] { { 0, 18150, 0.10, 0 }, { 18150, 73800, 0.15, 1815.00 }, { 73800,148850,0.25,10162.50},
+        {148850,226850,0.28,28925 },{226850,405100,0.33,50765},{405100,457600,0.35,109587.50},{457600,double.MaxValue,0.396,127962.50}};
+
+        //an array holding the table for the married filing seperately rates
+        private double[,] marriedFilingSeperateArray = new double[7, 4] { { 0,9075,0.10,0},{ 9075, 36900, 0.15, 907.50 },{ 36900, 74425, 0.25, 5081.25 },
+        {74425,113425,0.28,14462.5 },{113425,202550,0.33,25382.50 },{202550,228800,0.35,54793.75 },{228800,double.MaxValue,0.396,63981.25 } };
+
+        //an array holding the table for filing the head of household
+        private double[,] headOfHouseArray = new double[7, 4] { { 0, 12950, 0.10, 0 }, { 12950, 49400, 0.15, 1295 }, { 49400,127550,0.25,6762.50},
+        {127550,206600,0.28,26300 },{206600,405100,0.33,48434},{405100,432200,0.35,113939},{432200,double.MaxValue,0.396,123424}};
+
 
         public TaxComputation()
         {
@@ -23,22 +41,22 @@ namespace TaxRateProgram
             {
                 case 1:
                     {
-                         tax = ComputeSingleTax(amount);
+                         tax = ComputeTax(amount,filingSingleArray);
                         break;
                     };
                 case 2:
                     {
-                        tax = ComputeMarriedJointTax(amount);
+                        tax = ComputeTax(amount,marriedFilingJointArray);
                         break;
                     };
                 case 3:
                     {
-                        tax = ComputeMarriedSeperate(amount);
+                        tax = ComputeTax(amount,marriedFilingSeperateArray);
                         break;
                     };
                 case 4:
                     {
-                        tax = ComputeHeadOfHouse(amount);
+                        tax = ComputeTax(amount,headOfHouseArray);
                         break;
                     };
                     
@@ -46,163 +64,24 @@ namespace TaxRateProgram
             return tax;
         }
 
-        private double ComputeSingleTax(double amount)
+        private double ComputeTax(double amount,double[,] anArray)
         {
             double tax = 0.0;
-            if(amount <= 0)
-            {
-                Console.Out.WriteLine("There is not tax for the amount of "+amount);
-            }
           
-                if((amount >0)&& (amount <= 9075.00))
+            for (int index = 0; index < anArray.Length; index++)
+            {
+                if ((amount >= anArray[index, 0]) && (amount < anArray[index, 1])&&(index < 7))
                 {
-                     tax = amount * 0.1;
+
+                    tax = anArray[index, 3] + ((amount - anArray[index, 0]) * anArray[index, 2]);
+                    return tax;
                 }
-                else if((amount > 9075.00)&& (amount <= 36900.00))
-                {
-                tax = ( 907.50) + ((amount - 9075) * 0.15);
-                }
-                else if((amount > 36900.00)&& (amount <= 89350.00))
-                {
-                tax = ( 5081.25) + ((amount - 36900) * 0.25);
-                }
-                else if((amount > 89350.00)&&(amount <= 186350.00))
-                {
-                    tax = ( 18193.75)+((amount - 89350)*0.28);
-                }
-                else if((amount > 186350.00)&&(amount <= 405100))
-                {
-                tax = (45353.75) + ((amount - 186350) * 0.33);
-                }
-                else if((amount > 405100)&&(amount <= 406750))
-                {
-                   tax = (117541.25 )+((amount - 405100)*0.35);
-                }
-           
-                else
-                {
-                tax = (118118.75) + ((amount - 406750) * 0.396);
-                }
-              
+            }
+            return tax;
             
-            return tax;
         }
 
-        private double ComputeMarriedJointTax(double amount)
-        {
-            double tax = 0.0;
-            if(amount <= 0)
-            {
-                Console.Out.WriteLine("there is no tax for the amount of " + amount);
-            }
-
-            if((amount > 0  )&&(amount <= 18150))
-            {
-                tax = amount * 0.10;
-            }
-            else if ((amount >  18150 ) && (amount <= 73800))
-            {
-                tax = (1815) + ((amount - 18150) * 0.15);
-                Console.Out.WriteLine("inside the function  tax = " + tax);
-            }
-            else if ((amount > 73800  ) && (amount <= 148850))
-            {
-                tax = (10162.50) + ((amount - 73800) * 0.25);
-            }
-            else if((amount >148850)&&(amount <= 226850))
-            {
-                tax = (28925) + ((amount - 148850) * 0.28);
-            }
-           else if((amount > 226850)&&(amount <= 405100))
-            {
-                tax = (50765)+((amount - 226850)*0.33);
-            }
-           else if ((amount > 405100) && (amount <= 457600))
-            {
-                tax = (109587.50) + ((amount - 405100) * 0.35);
-            }
-            else
-                tax = (127962.50) + ((amount - 457600) * 0.396);
-            return tax;
-        }
-        private double ComputeMarriedSeperate(double amount)
-        {
-            double tax = 0.0;
-            
-            if(amount <= 0)
-            {
-                Console.Out.WriteLine("There is no tax for the amount of " + amount);
-            }
-
-            else if((amount > 0)&&(amount <= 9075))
-            {
-                tax = amount * 0.10;
-            }
-            else if((amount > 9075)&& (amount <= 36900))
-            {
-                tax = (907.50) + ((amount - 9075) * 0.15);
-            }
-            else if ((amount > 36900) && (amount <= 74425))
-            {
-                tax = (5081.25) + ((amount - 36900) * 0.25);
-            }
-            else if ((amount > 74425) && (amount <= 113425))
-            {
-                tax = (14462.50) + ((amount - 74425) * 0.28);
-            }
-            else if ((amount >113425 ) && (amount <= 202550))
-            {
-                tax = (25382.50) + ((amount - 113425) * 0.33);
-            }
-            else if ((amount > 202550) && (amount <= 228800))
-            {
-                tax = (54793.75) + ((amount - 202550) * 0.35);
-            }
-            else
-            {
-                tax = (63981.25) + ((amount - 228800) * 0.396);
-            }
-                return tax;
-
-        }
-
-        private double ComputeHeadOfHouse(double amount)
-        {
-            double tax = 0.0;
-            if(amount <= 0)
-            {
-                Console.Out.WriteLine("There is no tax for the amount of " + amount);
-            }
-            else if ((amount > 0) && (amount <= 12950))
-            {
-                tax = amount * 0.10;
-            }
-            else if ((amount > 12950) && (amount <= 49400))
-            {
-                tax = (1295) + ((amount - 12950) * 0.15);
-            }
-            else if ((amount > 49400) && (amount <= 127550))
-            {
-                tax = (6762.50) + ((amount - 49400) * 0.25);
-            }
-            else if ((amount > 127550) && (amount <= 206600))
-            {
-                tax = (26300) + ((amount - 127550) * 0.28);
-            }
-            else if ((amount > 206600) && (amount <= 405100))
-            {
-                tax = (48434) + ((amount - 206600) * 0.33);
-            }
-            else if ((amount > 405100) && (amount <= 432200))
-            {
-                tax = (113939) + ((amount - 405100) * 0.35);
-            }
-            else 
-            {
-                tax = (123424) + ((amount - 432200) * 0.396);
-            }
-            return tax;
-        }
+        
 
     }
 }
